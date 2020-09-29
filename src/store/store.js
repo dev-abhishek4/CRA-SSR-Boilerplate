@@ -6,6 +6,8 @@ import { createBrowserHistory, createMemoryHistory } from 'history';
 import rootReducer from './reducers/index';
 import { watchStatus } from './sagas/index';
 
+console.log(rootReducer);
+
 // helper to test if we're on the server
 export const isServer = !(
     typeof window !== 'undefined' &&
