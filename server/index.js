@@ -1,7 +1,8 @@
 const md5File = require('md5-file');
 const path = require('path');
+const babelConfig = require('../babel-config');
 
-// ignore css, images request when serving from node
+// ignore css, scss, images request when serving from node
 const ignoreStyles = require('ignore-styles');
 
 const extensions = ['.gif', '.jpeg', '.jpg', '.png', '.svg'];
@@ -20,16 +21,9 @@ register(ignoreStyles.DEFAULT_EXTENSIONS, (mod, filename) => {
 });
 
 // as we are using ES6 and JSX syntax, we will need to compile with Babel and preset-react
+// configure to use import rather than require going forward
 require('@babel/polyfill');
-require('@babel/register')({
-    ignore: [/\/(build|node_modules)\//],
-    presets: ['@babel/preset-env', '@babel/preset-react'],
-    plugins: [
-        // these will allow us to use import rather than require
-        '@babel/plugin-syntax-dynamic-import',
-        'dynamic-import-node',
-    ]
-});
+require('@babel/register')(babelConfig);
 
 // load up the server
 require('./server');
