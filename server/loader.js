@@ -34,7 +34,7 @@ export default (req, res) => {
                 return res.status(404).end();
             }
 
-            const { store } = createStore(req.url);
+            const { store } = createStore(req.originalUrl);
 
             // based on cookies or other data, we can dispatch specific actions like signIn to update the store
 
@@ -42,7 +42,7 @@ export default (req, res) => {
 
             let routeMarkup = renderToString(
                 <Provider store={store}>
-                    <StaticRouter location={req.url} context={context}>
+                    <StaticRouter location={req.originalUrl} context={context}>
                         <App />
                     </StaticRouter>
                 </Provider>
